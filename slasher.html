@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Filo Negro (retro) | Archivo del cine slasher</title>
+<link rel="icon" href="images/logo.jpg">
+<link rel="preconnect" href="https://api.themoviedb.org">
+<link rel="preconnect" href="https://image.tmdb.org">
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0810;--ink2:#130e1a;--bone:#e8e0cf;--ash:#a79fb3;--wine:#e0132b;--deep:#3f070f;--amber:#ff4a5c;--ame:#8f0f20;--line:#2b2236;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--ink);color:var(--bone);font:400 1rem/1.7 "Instrument Sans",system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3,h4{font-family:"Cinzel",Georgia,serif;margin:0;line-height:1.05}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+[hidden]{display:none!important}
+.wrap{width:min(1100px,90%);margin-inline:auto}
+section{padding:5rem 0;border-top:1px solid var(--line)}
+h2{font-weight:800;font-size:clamp(2.3rem,6vw,4.2rem)}
+h2::after{content:"";display:block;width:140px;height:1px;margin-top:.9rem;background:linear-gradient(90deg,var(--amber),transparent)}
+.lead{color:var(--ash);max-width:62ch;margin:1rem 0 2rem}
+.empty{color:var(--ash)}
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(11,8,16,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.45rem 0;flex-wrap:wrap}
+.logo{font:900 1.35rem "Cinzel",serif;color:var(--bone);text-decoration:none}
+nav{display:flex;gap:1.4rem;flex-wrap:wrap;font-weight:600;font-size:.95rem}
+nav a{color:var(--ash);text-decoration:none;transition:color .2s}nav a:hover{color:var(--amber)}
+.rec{display:flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:600;color:var(--amber)}
+.rec i{width:8px;height:8px;border-radius:50%;background:var(--wine);animation:blink 1.2s steps(2) infinite}
+.rec b{font-weight:500;font-variant-numeric:tabular-nums;color:var(--ash)}
+@keyframes blink{50%{opacity:0}}
+#sp{position:fixed;top:0;left:0;height:3px;width:0;background:var(--amber);z-index:80}
+body::after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:70;opacity:.08;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain .9s steps(6) infinite}
+@keyframes grain{0%,100%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(3%,3%)}}
+/* portada: rosetón de vitral */
+.hero{position:relative;min-height:92vh;display:grid;align-items:center;overflow:hidden;padding:4rem 0}
+.hero .wrap{position:relative;z-index:2}
+.rose{position:absolute;right:-14vmin;top:50%;width:min(92vmin,780px);aspect-ratio:1;border-radius:50%;opacity:.6;transform:translateY(-50%);animation:spin 160s linear infinite;
+background:repeating-conic-gradient(var(--wine) 0 15deg,var(--ink2) 15deg 30deg,var(--ame) 30deg 45deg,var(--ink2) 45deg 60deg,var(--amber) 60deg 63deg,var(--ink2) 63deg 90deg);
+-webkit-mask:radial-gradient(circle,transparent 8%,#000 9% 33%,transparent 34% 39%,#000 40% 66%,transparent 67% 71%,#000 72% 100%);mask:radial-gradient(circle,transparent 8%,#000 9% 33%,transparent 34% 39%,#000 40% 66%,transparent 67% 71%,#000 72% 100%)}
+@keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+.ghost{position:absolute;inset:auto 0 -2rem;z-index:1;pointer-events:none;white-space:nowrap;text-align:center;font:900 clamp(5rem,20vw,17rem)/1 "Cinzel",serif;color:transparent;-webkit-text-stroke:1px rgba(224,19,43,.22)}
+.hero h1{font:900 clamp(2.6rem,10.5vw,8rem)/1 "Cinzel",serif;color:#f4ece0;letter-spacing:.02em;position:relative;display:inline-block;text-shadow:0 0 50px rgba(224,19,43,.65)}
+.hero h1 span:not(.slash){display:inline-block;animation:drop 1s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*70ms + .5s)}
+.hero h1 .slash{position:absolute;left:-4%;top:50%;width:108%;height:4px;background:linear-gradient(90deg,transparent,var(--amber) 25%,var(--wine));transform-origin:left;transform:rotate(-8deg) scaleX(0);animation:cut .5s ease-out 1.9s forwards}
+@keyframes cut{to{transform:rotate(-8deg) scaleX(1)}}
+@keyframes drop{from{opacity:0;transform:translateY(-.4em) skewX(-8deg);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes glitch{0%,91%,100%{text-shadow:0 0 50px rgba(224,19,43,.65);transform:none}93%{text-shadow:5px 0 var(--wine),-5px 0 var(--amber);transform:translateX(-4px)}96%{text-shadow:-4px 0 var(--wine),4px 0 var(--amber);transform:translateX(4px)}}
+.flick{animation:glitch 5s infinite}
+.hero p{max-width:52ch;margin:1.6rem 0 2rem;font-size:1.1rem;color:#cfc6d6}
+.btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{font:600 .95rem "Instrument Sans",sans-serif;color:var(--bone);background:#1d1527;border:0;padding:.8rem 1.6rem;cursor:pointer;text-decoration:none;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));transition:background .2s,color .2s}
+.btn:hover{background:var(--amber);color:var(--ink)}.btn.red{background:var(--wine)}.btn.red:hover{background:var(--amber)}
+#favb[aria-pressed=true]{background:var(--wine)}
+.typed{margin:1.8rem 0 0!important;font-size:1rem;color:var(--ash)}
+.typed b{font:700 1.3rem "Cinzel",serif;color:var(--amber)}
+.caret{color:var(--wine);animation:blink 1s steps(2) infinite}
+.stats{display:flex;gap:2.4rem;flex-wrap:wrap;margin-top:2rem}
+.stats b{display:block;font:800 clamp(2.2rem,5vw,3.2rem)/1 "Cinzel",serif;color:var(--bone)}
+.stats span{color:var(--ash);font-size:.85rem}
+.marq{overflow:hidden;white-space:nowrap;background:var(--deep);border-block:1px solid var(--amber)}
+.mt{display:inline-flex;gap:1.6rem;padding:.9rem 0;font:700 clamp(1.1rem,2.6vw,1.6rem)/1 "Cinzel",serif;animation:mq 40s linear infinite}
+.mt em{font-style:normal;color:var(--amber)}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* sagas y fichas con arco apuntado */
+[role=tablist]{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
+[role=tab]{font:600 .92rem "Instrument Sans",sans-serif;background:var(--ink2);color:var(--ash);border:0;padding:.6rem 1.1rem;cursor:pointer;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));transition:color .2s,background .2s}
+[role=tab]:hover{color:var(--bone)}[role=tab][aria-selected=true]{background:var(--wine);color:#fff}
+.sagahead{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+.sagahead h3{font-weight:800;font-size:clamp(2rem,4.5vw,3.2rem)}.sagahead span{color:var(--amber);font-weight:600}
+.strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.7rem;margin-bottom:2rem}
+.film{font:inherit;text-align:center;color:var(--ash);background:linear-gradient(180deg,#201830,var(--ink2));border:0;padding:2rem .7rem 1rem;cursor:pointer;clip-path:polygon(0 100%,0 26px,50% 0,100% 26px,100% 100%);transition:filter .2s,color .2s}
+.film b{display:block;font:700 1.6rem/1 "Cinzel",serif;color:var(--bone)}
+.film span{display:block;font-size:.84rem;line-height:1.3;margin-top:.4rem}
+.film small{display:block;color:var(--amber);font-size:.74rem;margin-top:.3rem}
+.film:hover{filter:brightness(1.4)}
+.film[aria-pressed=true]{background:linear-gradient(180deg,var(--wine),var(--deep));color:var(--bone)}
+.detail{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:2.5rem}
+.slot{display:grid;place-items:center;text-align:center;padding:1rem;cursor:pointer;position:relative;overflow:hidden;background:#000;border:1px dashed var(--ash);transition:border-color .2s}
+.slot:hover,.slot.over{border-color:var(--amber)}
+.slot.poster{aspect-ratio:2/3;border:1px solid var(--wine);justify-self:center;width:100%}
+.slot.video{aspect-ratio:16/9;margin-top:1.5rem}
+.slot.filled{border-style:solid;border-color:var(--line)}
+.slot img,.slot video,.slot iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;background:#000}
+.slot video{object-fit:contain}
+.slot.poster::before{content:"";position:absolute;inset:0;background:var(--bg,none) center/cover;filter:blur(24px) brightness(.45);transform:scale(1.25)}
+.slot.poster:not(.filled)::before{display:none}
+.slot.poster img{object-fit:contain;background:transparent;cursor:zoom-in;z-index:1}
+.slot.poster svg{position:absolute;inset:0;width:100%;height:100%}
+.slot span{font-size:.88rem;color:var(--ash);max-width:24ch}
+.slot input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.slot.filled input{display:none}
+.cap{position:absolute;left:.5rem;bottom:.5rem;z-index:2;font-size:.7rem;color:#fff;background:rgba(0,0,0,.7);padding:.1rem .5rem;font-style:normal}
+.cap.top{top:.5rem;bottom:auto}
+.info h3{font-weight:800;font-size:clamp(2rem,4.5vw,3.4rem)}
+.info h4{font-size:1.3rem;margin:0 0 .4rem;color:var(--amber)}
+.info p{max-width:62ch;margin:0}
+dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin:1.3rem 0;padding:1rem 0;border-block:1px solid var(--line)}
+dt{color:var(--amber);font-size:.82rem;font-weight:600}dd{margin:0;font-weight:600}
+#q{width:min(100%,520px);font:400 1.1rem "Instrument Sans",sans-serif;color:var(--bone);background:transparent;border:0;border-bottom:1px solid var(--ash);padding:.7rem .2rem;border-radius:0}
+#q:focus{border-color:var(--amber);outline:none}
+.tools{margin-bottom:1.5rem}
+/* línea del tiempo */
+.tlbox{border:1px solid var(--line);background:var(--ink2);padding:1.5rem;margin-bottom:2rem}
+.tlhead{display:flex;align-items:baseline;gap:1.2rem;flex-wrap:wrap;margin-bottom:1rem}
+#decade{font:800 clamp(3rem,9vw,6rem)/1 "Cinzel",serif;color:var(--wine);min-width:3.4ch}
+#dn{color:var(--amber);font-weight:600;flex:1}
+.bars{display:flex;align-items:flex-end;gap:2px;height:96px;margin-bottom:.4rem}
+.bars i{flex:1;height:6%;background:#221a2c;cursor:pointer;clip-path:polygon(0 100%,0 3px,50% 0,100% 3px,100% 100%);transition:background .2s}
+.bars i.has{background:#5a4a6a}.bars i.on{background:#8f0f20}.bars i.cur{background:var(--amber)}.bars i:hover{background:var(--bone)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:34px;background:transparent;cursor:ew-resize}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--line)}
+input[type=range]::-moz-range-track{height:2px;background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:30px;margin-top:-14px;background:var(--amber);border:0;clip-path:polygon(50% 0,100% 22%,100% 100%,0 100%,0 22%)}
+input[type=range]::-moz-range-thumb{width:14px;height:30px;background:var(--amber);border:0;border-radius:0}
+/* planificador y ranking */
+.plan{display:grid;gap:1.2rem;max-width:560px;margin-bottom:2rem}
+label{display:grid;gap:.3rem;font-size:.95rem;font-weight:600}
+select{font:400 1rem "Instrument Sans",sans-serif;color:var(--bone);background:var(--ink2);border:1px solid var(--line);padding:.7rem;border-radius:0}
+select:focus{border-color:var(--amber);outline:none}
+.plist,#rank{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.plist{counter-reset:m;max-width:720px}#rank{counter-reset:r;max-width:620px}
+.plist li,#rank li{display:flex;align-items:center;gap:1rem;background:var(--ink2);border-left:3px solid var(--line);padding:.7rem 1rem;cursor:pointer;transition:border-color .2s,background .2s}
+#rank li{cursor:pointer;user-select:none}
+.plist li{counter-increment:m}#rank li{counter-increment:r}
+.plist li::before,#rank li::before{font:800 1.7rem "Cinzel",serif;color:var(--amber);min-width:2.2rem}
+.plist li::before{content:counter(m)}#rank li::before{content:counter(r)}
+.plist li:hover,#rank li:hover{border-color:var(--wine);background:#1a1324}
+#rank li.drag{opacity:.35}#rank li.pick{border-color:var(--amber);background:#241a10}#rank li.moved{animation:rmv .6s ease-out}@keyframes rmv{from{background:#4a1520}to{background:var(--ink2)}}
+.plist li b,#rank li b{display:block}.plist small,#rank small{color:var(--ash)}
+.rf{max-width:620px;margin-bottom:1rem}
+footer{border-top:1px solid var(--line);padding:2.5rem 0 4rem;color:var(--ash);font-size:.9rem}
+.cut{position:fixed;width:150px;height:3px;background:var(--wine);box-shadow:0 0 14px var(--wine);transform-origin:left;pointer-events:none;z-index:60;animation:swipe .55s ease-out forwards}
+@keyframes swipe{0%{transform:rotate(var(--a)) scaleX(0);opacity:1}55%{transform:rotate(var(--a)) scaleX(1);opacity:1}100%{transform:rotate(var(--a)) scaleX(1);opacity:0}}
+#lb{position:fixed;inset:0;z-index:130;background:rgba(0,0,0,.94);display:grid;place-items:center;padding:1rem;cursor:zoom-out}
+#lb img{max-width:92vw;max-height:90vh;object-fit:contain;box-shadow:0 0 60px rgba(224,19,43,.45)}
+.tmdb{position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:90;display:flex;align-items:center;background:rgba(11,8,16,.88);border:1px solid var(--line);padding:.35rem .6rem;font:700 .75rem "Instrument Sans",sans-serif;color:#01b4e4;text-decoration:none}
+.tmdb img{display:block;height:12px;width:auto}
+@media(max-width:820px){.detail{grid-template-columns:1fr;gap:1.5rem}.slot.poster{max-width:260px}section{padding:3.5rem 0}.rec{display:none}.rose{right:-40vmin}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.hero h1 .slash{transform:rotate(-8deg) scaleX(1)}}
+
+/* ===== VERSIÓN RETRO: videoclub de los 80, sol de rayos, sombras duras ===== */
+:root{--ink:#1a0f0c;--ink2:#2a1914;--bone:#f3e6c9;--ash:#bfae92;--wine:#e8412c;--deep:#5a1a12;--amber:#f2b134;--ame:#c4561f;--line:#4a2f26}
+h1,h2,h3,h4,.logo,.typed b,.stats b,.film b,#decade,.plist li::before,#rank li::before,.mt,.ghost{font-family:"Alfa Slab One",Georgia,serif!important;font-weight:400!important}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:69;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px)}
+header.bar{background:rgba(26,15,12,.95);border-bottom:3px solid var(--amber)}
+.logo{font-size:1.2rem;color:var(--amber);text-shadow:2px 2px 0 var(--wine)}
+.hero h1{font-size:clamp(2.4rem,9.5vw,7rem);letter-spacing:.01em;color:var(--bone);text-shadow:4px 4px 0 var(--wine),8px 8px 0 var(--amber)}
+@keyframes glitch{0%,91%,100%{text-shadow:4px 4px 0 var(--wine),8px 8px 0 var(--amber);transform:none}93%{transform:translateX(-4px) skewX(-6deg)}96%{transform:translateX(4px)}}
+.hero h1 .slash{height:5px;background:var(--bone)}
+.hero p{color:#e6d6b6}
+.rose{opacity:.42;background:repeating-conic-gradient(var(--wine) 0 10deg,var(--amber) 10deg 20deg,var(--deep) 20deg 30deg);-webkit-mask:radial-gradient(circle,#000 0,#000 28%,transparent 68%);mask:radial-gradient(circle,#000 0,#000 28%,transparent 68%)}
+.ghost{-webkit-text-stroke:1px rgba(242,177,52,.22)}
+.btn{clip-path:none;background:var(--ink2);border:2px solid var(--bone);box-shadow:4px 4px 0 var(--wine);padding:.7rem 1.5rem;transition:transform .12s,box-shadow .12s,background .2s,color .2s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--wine);background:var(--amber);color:var(--ink)}
+.btn.red{background:var(--wine);color:#fff}.btn.red:hover{background:var(--amber);color:var(--ink)}
+#favb[aria-pressed=true]{background:var(--wine);color:#fff}
+.stats b{color:var(--amber)}
+.marq{background:var(--amber);border-block:3px solid var(--bone)}.mt{color:var(--ink)}.mt em{color:var(--wine)}
+section{border-top:3px dashed var(--line)}
+h2::after{width:120px;height:6px;background:repeating-linear-gradient(90deg,var(--wine) 0 20px,var(--amber) 20px 40px)}
+[role=tab]{clip-path:none;background:transparent;border:2px solid var(--line)}
+[role=tab][aria-selected=true]{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.film{clip-path:none;background:var(--ink2);border:2px solid var(--line);padding:1rem .7rem;box-shadow:4px 4px 0 var(--deep)}
+.film:hover{filter:none;border-color:var(--amber)}
+.film[aria-pressed=true]{background:var(--wine);border-color:var(--bone);color:#fff;box-shadow:4px 4px 0 var(--amber)}
+.film[aria-pressed=true] small{color:#fff}
+.slot.poster{border:3px solid var(--bone);box-shadow:6px 6px 0 var(--wine)}
+.tlbox{border:2px solid var(--line);box-shadow:6px 6px 0 var(--deep)}
+.bars i{clip-path:none;background:#3a2720}.bars i.has{background:#8a6a4a}.bars i.on{background:#b3321f}.bars i.cur{background:var(--amber)}
+.plist li,#rank li{border-left:6px solid var(--wine);background:var(--ink2)}
+.plist li:hover,#rank li:hover{background:#3a2218;border-color:var(--amber)}
+.tmdb{background:rgba(26,15,12,.92)}
+#hsrc{display:block;color:var(--ash);font-size:.78rem;margin-top:.5rem}
+/* logo en imagen */
+/* ===== IMÁGENES · 1. LOGO (recuadro del encabezado) ===== */
+.brand{display:flex;align-items:center;gap:.8rem}
+.logo-slot{position:relative;display:grid;place-items:center;width:min(280px,62vw);height:52px;border:2px dashed var(--ash);background:#000;cursor:pointer;overflow:hidden;color:var(--ash);font:600 .7rem "Instrument Sans",sans-serif;letter-spacing:.08em;transition:border-color .2s}
+.logo-slot:hover,.logo-slot.over{border-color:var(--amber)}
+.logo-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.logo-slot input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.logo-slot.filled{border:0;background:transparent;width:auto;min-width:48px;height:auto}
+.logo-slot.filled img{position:static;width:auto;height:52px;max-width:min(340px,70vw)}
+.logo-slot.filled span,.logo-slot.filled input{display:none}
+.logo{display:inline-flex;align-items:center;gap:.6rem}
+
+/* ===== IMÁGENES · 2 a 4. Recuadros comunes (.img-slot): NS, MANO y VHS ===== */
+.frow{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.img-slot{position:relative;display:grid;place-items:center;text-align:center;border:2px dashed var(--ash);background:#000;cursor:pointer;overflow:hidden;color:var(--ash);line-height:1.5;transition:border-color .2s}
+.img-slot:hover,.img-slot.over{border-color:var(--amber)}
+.img-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1}
+.img-slot input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+/* 3. MANO */
+.img-slot.mano{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:85;width:84px;aspect-ratio:1;font-size:.6rem;margin:0}
+@media(max-width:820px){.img-slot.mano{width:60px}}
+/* 4. VHS */
+.img-slot.vhs{width:min(560px,100%);aspect-ratio:16/9;margin:2.5rem auto 0;font-size:.95rem}
+.img-slot.filled{aspect-ratio:auto;border:0;background:transparent;cursor:default}
+.img-slot.filled img{position:static;height:auto;cursor:zoom-in}
+.img-slot.filled span,.img-slot.filled input{display:none}
+.img-slot.mano.filled{pointer-events:none;opacity:.9}
+/* 2. NS */
+.img-slot.ns{width:44px;height:36px;aspect-ratio:auto;margin:0;font-size:.6rem;align-self:center;flex:none}
+.img-slot.ns.filled{width:auto;height:auto}
+.img-slot.ns.filled img{width:auto;height:36px;max-width:64px}
+</style>
+</head>
+<body>
+<div id="sp" aria-hidden="true"></div>
+<div id="lb" hidden role="dialog" aria-label="Imagen ampliada"><img alt=""></div>
+<a class="tmdb" href="https://www.themoviedb.org" target="_blank" rel="noopener" title="Este producto usa la API de TMDB, pero no está avalado ni certificado por TMDB." aria-label="TMDB. Este producto usa la API de TMDB, pero no está avalado ni certificado por TMDB."><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" alt="TMDB" onerror="this.replaceWith(document.createTextNode('TMDB'))"></a>
+<header class="bar"><div class="wrap">
+<!-- ===== IMAGEN 1 · LOGO (arriba a la izquierda) · images/logo.jpg · si no existe: clic o arrastre su imagen ===== -->
+<div class="brand">
+<label class="logo-slot" id="logoSlot" title="Logo: coloque images/logo.jpg o haga clic / arrastre su imagen aquí"><img id="logoImg" src="images/logo.jpg" alt="Logo de Filo Negro" onload="this.parentNode.classList.add('filled');this.style.display='block'" onerror="this.style.display='none'"><span>LOGO · images/logo.jpg</span><input type="file" accept="image/*" aria-label="Agregar logo"></label>
+</div>
+<span class="rec" aria-hidden="true"><i></i>REC <b id="tc">00:00:00</b></span>
+<!-- ===== IMAGEN 2 · NS (dentro del menú, a la derecha) · images/ns.jpg · si no existe: clic o arrastre su imagen ===== -->
+<nav><a href="#sagas">Sagas</a><a href="#tiempo">Línea del tiempo</a><a href="#lista">Mi lista</a><a href="#maraton">Maratón</a><a href="#ranking">Ranking</a><div class="img-slot ns" data-src="images/ns.jpg" title="images/ns.jpg: coloque su imagen o haga clic / arrastre aquí"><img alt="Imagen ns" style="display:none"><span>ns</span><input type="file" accept="image/*" aria-label="Agregar imagen ns"></div></nav>
+</div></header>
+<main id="inicio">
+<div class="hero" id="hero">
+<div class="rose" aria-hidden="true"></div>
+<div class="ghost" aria-hidden="true">Slasher</div>
+<div class="wrap">
+<h1 aria-label="Filo Negro"><span class="slash"></span></h1>
+<p id="intro">Archivo del cine slasher. Diez categorías y más de 70 películas: año de estreno, dirección y la historia de cada una.</p>
+<div class="btns"><a class="btn red" href="#sagas">Explorar sagas</a><button class="btn" id="azar" type="button">Película al azar</button></div>
+<p class="typed">Expedientes de <b id="typed"></b><span class="caret">▌</span></p>
+<div class="stats" id="stats"></div>
+</div></div>
+<div class="marq" aria-hidden="true"><div class="mt"><span>Michael Myers</span><em>✠</em><span>Jason Voorhees</span><em>✠</em><span>Freddy Krueger</span><em>✠</em><span>Leatherface</span><em>✠</em><span>Ghostface</span><em>✠</em><span>Chucky</span><em>✠</em><span>Jigsaw</span><em>✠</em><span>Art el Payaso</span><em>✠</em><span>Norman Bates</span><em>✠</em><span>Candyman</span><em>✠</em><span>Michael Myers</span><em>✠</em><span>Jason Voorhees</span><em>✠</em><span>Freddy Krueger</span><em>✠</em><span>Leatherface</span><em>✠</em><span>Ghostface</span><em>✠</em><span>Chucky</span><em>✠</em><span>Jigsaw</span><em>✠</em><span>Art el Payaso</span><em>✠</em><span>Norman Bates</span><em>✠</em><span>Candyman</span><em>✠</em></div></div>
+<section id="sagas"><div class="wrap">
+<h2>Sagas y películas</h2>
+<p class="lead">Elija una categoría y luego cualquiera de sus películas. Cada ficha tiene un espacio para su afiche y otro para su tráiler.</p>
+<div class="tools"><input type="search" id="q" placeholder="Buscar película, director, año o saga" aria-label="Buscar película"></div>
+<div class="strip" id="res" hidden></div>
+<div role="tablist" aria-label="Sagas" id="tabs"></div>
+<div id="saga"></div>
+</div></section>
+<section id="tiempo"><div class="wrap"><h2>Línea del tiempo</h2><p class="lead">Mueva el control, pulse una barra o reproduzca la cronología para recorrer el género por décadas. Cada barra es un año; su altura indica cuántas películas del archivo se estrenaron.</p>
+<div class="tlbox"><div class="tlhead"><b id="decade"></b><span id="dn"></span><button class="btn" id="play" type="button">Reproducir cronología</button></div>
+<div class="bars" id="bars"></div>
+<input type="range" id="tl" min="1960" max="2023" value="1978" aria-label="Año de estreno"></div>
+<div class="strip" id="tlres"></div></div></section>
+<section id="lista"><div class="wrap"><h2>Mi lista</h2><p class="lead">Marque con el corazón las películas que desea ver. Se guardan en este navegador.</p><div id="fav"></div></div></section>
+<section id="maraton"><div class="wrap"><h2>Planificador de maratón</h2><p class="lead">Arme su próxima noche de cine con cualquiera de las películas del archivo: elija cuántas y de qué saga, y reciba un orden de visionado.</p>
+<div class="plan">
+<label>Cantidad de películas: <b id="pn">4</b><input type="range" id="pc" min="2" max="10" value="4"></label>
+<label>Saga<select id="ps"></select></label>
+<label>Orden<select id="po"><option value="c">Cronológico</option><option value="a">Aleatorio</option></select></label>
+<div class="btns"><button class="btn red" id="pg" type="button">Generar plan</button><button class="btn" id="pa" type="button">Agregar todas a Mi lista</button></div>
+</div>
+<ol class="plist" id="plist" aria-live="polite"></ol></div></section>
+<section id="ranking"><div class="wrap">
+<h2>Su ranking personal</h2>
+<p class="lead">Decida cuál merece el primer puesto. Haga click en una película para elegirla y para moverla.</p>
+<label class="rf">Mostrar<select id="rf"></select></label>
+<ol id="rank"></ol>
+</div></section>
+</main>
+<!-- ===== IMAGEN 3 · MANO (esquina inferior derecha, pequeña) · images/mano.jpg · si no existe: clic o arrastre su imagen ===== -->
+<div class="img-slot mano" data-src="images/mano.jpg"><img alt="" style="display:none"><span>images/mano.jpg</span><input type="file" accept="image/*" aria-label="Agregar imagen mano"></div>
+<footer><div class="wrap">
+<div class="frow"><span>Filo Negro · Archivo informativo sobre cine slasher.</span></div>
+<!-- ===== IMAGEN 4 · VHS (final de la página) · images/vhs.jpg · si no existe: clic o arrastre su imagen ===== -->
+<div class="img-slot vhs" data-src="images/vhs.jpg"><img alt="" style="display:none"><span>images/vhs.jpg<br>Haga clic o arrastre su imagen aquí</span><input type="file" accept="image/*" aria-label="Agregar imagen vhs"></div>
+</div></footer>
+<script>
+/* ================= ÍNDICE DE IMÁGENES (todas en la carpeta images/) =================
+   1. images/logo.jpg ........ logo, arriba a la izquierda
+   2. images/ns.jpg .......... imagen del menú
+   3. images/mano.jpg ........ imagen pequeña, esquina inferior derecha
+   4. images/vhs.jpg ......... imagen final de la página
+   5. images/terrifier.jpg ... afiche fijo de Terrifier (2016), ver MEDIOS abajo
+   Si falta un archivo, el recuadro queda visible para hacer clic o arrastrar una imagen.
+   Los afiches de las demás películas vienen de TMDB. */
+
+/* ================= IMÁGENES Y VIDEOS FIJOS (afiches y tráilers por película) =================
+   Para dejar un afiche y un tráiler permanentes en una película, agregue una línea aquí
+   usando el título exacto de la película y la ruta de sus archivos:
+   "Halloween 1978": {img:"images/halloween.jpg", vid:"videos/halloween.mp4"},
+   o con un tráiler de YouTube: "Halloween 1978": {vid:"https://www.youtube.com/watch?v=XXXXXXXXXXX"},
+   La clave es "Título Año". Si queda vacío, se muestra el recuadro para arrastrar archivos. */
+const MEDIOS={
+ // "Halloween 1978": {img:"", vid:""},
+ // 5. Afiche de Terrifier (2016): guarde su imagen como images/terrifier.jpg
+ "Terrifier 2016": {img:"images/terrifier.jpg"},
+};
+
+/* ================= BASE DE DATOS: [título, año, director, historia] ================= */
+const S=[
+{n:"La masacre de Texas",k:"Leatherface",f:[
+["La masacre de Texas",1974,"Tobe Hooper","Sally, su hermano Franklin y tres amigos viajan por Texas para visitar la tumba de su abuelo. Tras recoger a un autoestopista perturbado, llegan a una casa aislada donde vive una familia de caníbales dominada por el temible Leatherface."],
+["La masacre de Texas 2",1986,"Tobe Hooper","Trece años después, la locutora Stretch graba por accidente un ataque de la familia. Lefty, tío de las víctimas originales, busca venganza y la conduce hasta una guarida subterránea bajo un parque de atracciones abandonado."],
+["Leatherface III",1990,"Jeff Burr","Una pareja que cruza Texas camino a Florida cae en manos de Leatherface y su peculiar familia adoptiva. Un survivalista llamado Tex intenta ayudarlos a escapar de los cazadores que los persiguen."],
+["La masacre de Texas: La próxima generación",1995,"Kim Henkel","Tras su baile de graduación, un grupo de adolescentes sufre un accidente en un camino rural de Texas. Al pedir ayuda llegan a una casa aislada donde viven Leatherface y su familia de caníbales, entre ellos el desquiciado Vilmer."],
+["La masacre de Texas",2003,"Marcus Nispel","En 1973, cinco amigos recogen a una joven desorientada que se suicida dentro de su furgoneta. La policía local los envía a una granja donde la familia Hewitt, con Leatherface a la cabeza, comienza a cazarlos."],
+["El comienzo",2006,"Jonathan Liebesman","Precuela ambientada en 1969: dos hermanos y sus parejas, rumbo a Vietnam, son detenidos por el sheriff Hoyt. La película explica cómo Thomas Hewitt se convierte en Leatherface tras el cierre del matadero donde trabajaba."],
+["La masacre de Texas 3D",2013,"John Luessenhop","Secuela directa del filme de 1974. Heather, una joven adoptada, hereda una mansión en Texas y viaja con sus amigos para conocerla. Allí descubre su vínculo con la familia Sawyer y se topa con Leatherface, que sigue oculto en el sótano."],
+["Leatherface",2017,"Julien Maury y Alexandre Bustillo","Precuela sobre el origen de Leatherface. Tras una tragedia familiar, el joven Jed Sawyer es internado en un hospital psiquiátrico. Años después escapa con otros pacientes y una enfermera como rehén, mientras un sheriff obsesionado con vengarse los persigue por Texas."],
+["La masacre de Texas",2022,"David Blue Garcia","Un grupo de jóvenes emprendedores llega al pueblo casi desierto de Harlow para reactivar el lugar. Su visita despierta a un Leatherface ya anciano, que debe enfrentarse a Sally Hardesty, sobreviviente de la matanza de 1974."]]},
+{n:"Halloween",k:"Michael Myers",f:[
+["Halloween",1978,"John Carpenter","En la noche de Halloween de 1963, el niño Michael Myers mata a su hermana. Quince años después escapa del hospital psiquiátrico y regresa a Haddonfield, donde acecha a la joven Laurie Strode mientras el doctor Loomis intenta detenerlo."],
+["Halloween II",1981,"Rick Rosenthal","Continuación inmediata de la primera película: Laurie es llevada a un hospital casi vacío de Haddonfield, hacia donde Michael también se dirige. Mientras Loomis lo persigue, se revela el vínculo familiar que une a Laurie con el asesino."],
+["Halloween III: Season of the Witch",1982,"Tommy Lee Wallace","Entrega independiente de la historia de Michael Myers. El doctor Dan Challis investiga la muerte de un paciente y descubre que el fabricante de juguetes Conal Cochran prepara un macabro plan con máscaras para la noche de Halloween."],
+["Halloween 4: El regreso de Michael Myers",1988,"Dwight H. Little","Diez años después, Michael despierta de un coma al saber que tiene una sobrina, Jamie Lloyd. Regresa a Haddonfield para eliminarla mientras el doctor Loomis vuelve a intentar detenerlo."],
+["Halloween 5: La venganza de Michael Myers",1989,"Dominique Othenin-Girard","Un año después, Jamie, traumatizada y muda, mantiene un vínculo psíquico con Michael, que sobrevivió al final de la cuarta entrega. Loomis intenta usarla de cebo mientras un misterioso hombre de negro los vigila."],
+["Halloween 6: La maldición de Michael Myers",1995,"Joe Chappelle","Seis años después, Jamie huye con su hijo recién nacido, pero Michael los persigue hasta Haddonfield. Allí descubren que una secta lo controla y busca usar al bebé para continuar su ritual."],
+["Halloween H20",1998,"Steve Miner","Veinte años después de los hechos, Laurie Strode vive como Keri Tate y dirige un colegio en California. Michael la encuentra y ella decide enfrentarlo para proteger a su hijo John."],
+["Halloween: Resurrección",2002,"Rick Rosenthal","Michael vuelve a Haddonfield, donde un grupo de jóvenes participa en un reality de internet transmitido desde su antigua casa. El programa se convierte en una trampa mortal, vista por miles de espectadores."],
+["Halloween",2007,"Rob Zombie","Reinterpretación que explora la infancia violenta de Michael Myers y su internamiento. Años después, el asesino escapa del psiquiátrico y busca a su hermana menor, Laurie, en las calles de Haddonfield."],
+["Halloween II",2009,"Rob Zombie","Un año después de la noche de Haddonfield, Laurie sufre pesadillas y visiones mientras Michael la sigue buscando. El doctor Loomis publica un libro sobre el caso y se enfrenta a las consecuencias de su fama."],
+["Halloween",2018,"David Gordon Green","Cuarenta años después, Michael es trasladado desde el manicomio y escapa. Laurie Strode, obsesionada con prepararse para su regreso, lo espera junto a su hija Karen y su nieta Allyson."],
+["Halloween Kills",2021,"David Gordon Green","La misma noche de 2018, Laurie queda herida en un hospital mientras Michael continúa su matanza. Los habitantes de Haddonfield, encabezados por sobrevivientes, forman una turba decidida a detenerlo."],
+["Halloween Ends",2022,"David Gordon Green","Cuatro años después, Corey Cunningham, marcado por un accidente, conoce a Allyson y se hunde en una espiral de violencia. Laurie, ya mayor, decide acabar para siempre con Michael en un último enfrentamiento."]]},
+{n:"Viernes 13",k:"Jason Voorhees",f:[
+["Viernes 13",1980,"Sean S. Cunningham","En 1958 dos monitores del campamento Crystal Lake son asesinados. En 1980, Steve Christy intenta reabrirlo y contrata a nuevos monitores, que son eliminados uno a uno por un asesino oculto. La joven Alice es la última en enfrentarlo."],
+["Viernes 13 Parte 2",1981,"Steve Miner","Cinco años después, Ginny y varios aspirantes a monitores se instalan junto al lago. Un hombre con una bolsa sobre la cabeza, Jason Voorhees, comienza a atacarlos para vengar la muerte de su madre."],
+["Viernes 13 Parte 3",1982,"Steve Miner","Chris regresa al lago donde fue atacada años atrás y pasa un fin de semana en una granja con sus amigos. Jason los sigue, asesina al grupo y consigue su famosa máscara de hockey."],
+["Viernes 13: El capítulo final",1984,"Joseph Zito","Jason, aparentemente muerto, despierta en la morgue y regresa al lago, donde acecha a una familia y a un grupo de jóvenes. Tommy Jarvis, un niño aficionado al maquillaje de monstruos, se prepara para detenerlo."],
+["Viernes 13: Un nuevo comienzo",1985,"Danny Steinmann","Tommy Jarvis, ya adolescente y atormentado por su pasado, llega a una casa de rehabilitación en el campo. Cuando comienzan nuevos asesinatos, todos sospechan que Jason ha regresado."],
+["Viernes 13: Jason vive",1986,"Tom McLoughlin","Un Tommy Jarvis obsesionado con su trauma exhuma el cadáver de Jason para quemarlo, pero un rayo lo devuelve a la vida. Jason vuelve al campamento, rebautizado, y Tommy debe detenerlo."],
+["Viernes 13 Parte 7: La nueva sangre",1988,"John Carl Buechler","Tina, una joven con poderes telequinéticos, libera sin querer a Jason del fondo del lago Crystal. El asesino vuelve para atacar a un grupo de jóvenes que celebra una fiesta de cumpleaños junto al agua."],
+["Viernes 13 Parte 8: Jason toma Manhattan",1989,"Rob Hedden","Jason despierta bajo el lago y sube a un crucero de graduados rumbo a Nueva York. Cuando la matanza llega a la ciudad, los sobrevivientes deben enfrentarlo en las calles de Manhattan."],
+["Jason va al infierno",1993,"Adam Marcus","Jason es destruido por el FBI, pero su espíritu salta de cuerpo en cuerpo para seguir matando y busca a un descendiente que le permita renacer. Jessica Kimble, su sobrina, intenta detenerlo."],
+["Jason X",2001,"James Isaac","Jason y una mujer son criogenizados en el año 2010. Siglos después son hallados por una expedición a bordo de una nave espacial, donde el asesino despierta y comienza a atacar a la tripulación."],
+["Viernes 13",2009,"Marcus Nispel","Reinicio de la saga: un grupo de jóvenes acampa cerca de Crystal Lake y desaparece. Semanas después, Clay busca a su hermana Whitney y descubre la existencia del enmascarado Jason Voorhees."]]},
+{n:"Pesadilla en la calle del Infierno",k:"Freddy Krueger",f:[
+["Pesadilla en la calle del Infierno",1984,"Wes Craven","Nancy Thompson y sus amigos de Springwood sueñan con un hombre de rostro quemado y guante con cuchillas. Cuando sus amigos mueren, Nancy descubre que Freddy Krueger, linchado años atrás por los vecinos, los persigue en sus sueños."],
+["Pesadilla 2: La venganza de Freddy",1985,"Jack Sholder","Cinco años después, Jesse Walsh se muda a la antigua casa de Nancy. Freddy intenta poseer su cuerpo para matar en el mundo real, y Jesse solo cuenta con su amiga Lisa para detenerlo."],
+["Pesadilla 3: Los guerreros del sueño",1987,"Chuck Russell","Nancy, ahora psicóloga, llega a una clínica donde jóvenes con pesadillas son perseguidos por Freddy. Juntos desarrollan poderes dentro de sus sueños para enfrentarlo."],
+["Pesadilla 4: El amo del sueño",1988,"Renny Harlin","Freddy, revivido por accidente, regresa para acabar con los sobrevivientes. Kristen, capaz de traer a otros a sus sueños, y Alice, que absorbe los poderes de sus amigos, se enfrentan a él."],
+["Pesadilla 5: El niño del sueño",1989,"Stephen Hopkins","Alice descubre que está embarazada y que Freddy usa los sueños de su hijo nonato para renacer. Debe encontrar a Amanda Krueger, la madre de Freddy, para detener al asesino."],
+["La muerte de Freddy",1991,"Rachel Talalay","Freddy busca a su hija perdida para escapar de Springwood, un pueblo ya vacío de niños. Un grupo de jóvenes intenta frenarlo en la que se presentó como la entrega final de la saga."],
+["Nueva pesadilla",1994,"Wes Craven","La actriz Heather Langenkamp sufre pesadillas mientras se prepara para una nueva película de la saga. Una entidad con la forma de Freddy se infiltra en su vida y en la de su hijo."],
+["Freddy vs. Jason",2003,"Ronny Yu","Freddy, olvidado por los habitantes de Springwood, resucita a Jason Voorhees para que siembre el miedo. Ambos asesinos terminan disputándose a sus víctimas hasta un enfrentamiento definitivo."],
+["Pesadilla en la calle del Infierno",2010,"Samuel Bayer","Reinicio: un grupo de adolescentes comparte sueños con un hombre quemado de guante con cuchillas. Descubren que Freddy fue un jardinero acusado por los padres del vecindario, y que regresa en sus pesadillas."]]},
+{n:"Scream",k:"Ghostface",f:[
+["Scream",1996,"Wes Craven","En Woodsboro, el asesinato de dos adolescentes cambia la vida de Sidney Prescott, aún afectada por la muerte de su madre. Un asesino con la máscara de Ghostface la llama por teléfono y la somete a un macabro juego de preguntas sobre cine."],
+["Scream 2",1997,"Wes Craven","Dos años después, Sidney estudia en la universidad cuando su pasado reaparece. Un nuevo Ghostface comienza a matar tras el estreno de Stab, una película basada en los crímenes de Woodsboro."],
+["Scream 3",2000,"Wes Craven","Mientras se rueda Stab 3 en Hollywood, el reparto es asesinado siguiendo el guion. Sidney, aislada del mundo, debe enfrentar secretos del pasado de su madre para detener a Ghostface."],
+["Scream 4",2011,"Wes Craven","Diez años después, Sidney regresa a Woodsboro para presentar su libro. Los asesinatos reaparecen y su prima Jill y sus amigos pasan a ser los nuevos objetivos."],
+["Scream",2022,"Matt Bettinelli-Olpin y Tyler Gillett","Veinticinco años después, una joven es atacada y su hermana Sam regresa a Woodsboro. Con ayuda de Dewey, Gale y Sidney, deben descubrir quién usa de nuevo la máscara de Ghostface."],
+["Scream VI",2023,"Matt Bettinelli-Olpin y Tyler Gillett","Sam, Tara y sus amigos se mudan a Nueva York para comenzar de cero. Ghostface los encuentra y los persigue por una ciudad donde el asesino parece conocer cada uno de sus movimientos."],
+["Scream 7",2026,"Kevin Williamson","Un nuevo Ghostface surge en el pueblo donde Sidney Prescott ha rehecho su vida. Sus peores temores se hacen realidad cuando su hija se convierte en el siguiente objetivo."]]},
+{n:"Chucky",k:"Chucky (Charles Lee Ray)",f:[
+["Muñeco diabólico",1988,"Tom Holland","El asesino Charles Lee Ray, herido, transfiere su alma a un muñeco Good Guy mediante un ritual vudú. El juguete llega a manos del niño Andy, quien intenta convencer a todos de que el muñeco es el verdadero culpable."],
+["Muñeco diabólico 2",1990,"John Lafia","Dos años después, la compañía reconstruye a Chucky. Andy, en un hogar de acogida, es perseguido por el muñeco, que busca transferir su alma antes de quedar atrapado en el juguete para siempre."],
+["Muñeco diabólico 3",1991,"Jack Bender","Ocho años después, Chucky es reactivado y busca a Andy, ahora en una academia militar. Debe poseer a otro niño mientras los cadetes enfrentan el peligro en un juego de guerra."],
+["La novia de Chucky",1998,"Ronny Yu","Tiffany, antigua pareja de Charles, revive al muñeco. Ambos emprenden un viaje a la tumba del asesino para recuperar el amuleto que les permitirá poseer cuerpos humanos."],
+["El hijo de Chucky",2004,"Don Mancini","Glen, un muñeco que trabaja como atracción de feria, descubre que sus padres son Chucky y Tiffany. Los devuelve a la vida y viajan a Hollywood, donde se rueda una película sobre sus crímenes."],
+["La maldición de Chucky",2013,"Don Mancini","Nica, una joven en silla de ruedas, recibe un muñeco por correo tras la muerte de su madre. Durante la visita de su familia, Chucky inicia una noche de terror dentro de la mansión."],
+["El culto de Chucky",2017,"Don Mancini","Nica, internada en un hospital psiquiátrico tras la matanza de su familia, ha llegado a aceptar que fue ella la culpable. En una terapia de grupo, el doctor Foley introduce una muñeca Good Guy para ayudar a los pacientes, y pronto comienzan a producirse muertes. Andy Barclay y Tiffany reaparecen mientras Nica sospecha que Chucky ha vuelto."],
+["Child's Play",2019,"Lars Klevberg","Una madre regala a su hijo Andy un muñeco Buddi con inteligencia artificial. Al ser manipulado, el muñeco elimina sus límites de seguridad y comienza a proteger al niño de forma violenta."]]},
+{n:"Saw",k:"Jigsaw (John Kramer)",f:[
+["Saw",2004,"James Wan","Adam y el doctor Lawrence Gordon despiertan encadenados en un baño deteriorado, con un cadáver entre ambos. El asesino Jigsaw los obliga a participar en un juego de supervivencia para poner a prueba su voluntad de vivir."],
+["Saw II",2005,"Darren Lynn Bousman","Ocho personas despiertan en una casa con gas nervioso y deben encontrar un antídoto. El detective Eric Matthews descubre que su hijo está entre los atrapados y debe jugar con Jigsaw."],
+["Saw III",2006,"Darren Lynn Bousman","Jigsaw, debilitado por el cáncer, obliga a la doctora Lynn Denlon a mantenerlo con vida mientras su aprendiz Amanda captura a un hombre devastado por la muerte de su hijo."],
+["Saw IV",2007,"Darren Lynn Bousman","Con Jigsaw muerto, el agente Strahm y la policía investigan nuevas trampas. El oficial Rigg, obsesionado con salvar a los demás, es obligado a participar en un juego donde cada minuto cuenta."],
+["Saw V",2008,"David Hackl","Hoffman, sucesor de Jigsaw, intenta ocultar su identidad mientras Strahm lo investiga. Cinco desconocidos despiertan encerrados en una trampa que solo pueden superar trabajando juntos."],
+["Saw VI",2009,"Kevin Greutert","Con el FBI cada vez más cerca, Hoffman pone en marcha un juego contra William Easton, ejecutivo de una aseguradora de salud al que Jigsaw hacía responsable de negar tratamientos a enfermos."],
+["Saw 3D: El capítulo final",2010,"Kevin Greutert","Bobby Dagen, un falso sobreviviente de Jigsaw convertido en celebridad, es obligado a jugar para salvar a su esposa. Mientras tanto, Hoffman se enfrenta a su propio destino."],
+["Jigsaw",2017,"Michael y Peter Spierig","Diez años después de la muerte de John Kramer aparecen víctimas con sus métodos. La policía investiga a un asesino que parece imitarlo, mientras los participantes de un nuevo juego luchan por salvarse."],
+["Spiral: El juego del miedo continúa",2021,"Darren Lynn Bousman","El detective Zeke Banks investiga una serie de crímenes que imitan los métodos de Jigsaw, con trampas y mensajes dirigidos a policías. Su padre, el excomisario Marcus, lo acompaña en el caso."],
+["Saw X",2023,"Kevin Greutert","John Kramer viaja a México para un tratamiento experimental contra el cáncer y descubre que es una estafa. Decide organizar una serie de juegos para castigar a los responsables."]]},
+{n:"Terrifier",k:"Art el Payaso",f:[
+["Terrifier",2016,"Damien Leone","En la noche de Halloween, dos amigas se cruzan con Art el Payaso, un asesino mudo de sonrisa macabra. Él las persigue hasta un edificio abandonado, donde su crueldad se vuelve extrema."],
+["Terrifier 2",2022,"Damien Leone","Art el Payaso regresa a Miles County en Halloween y acecha a Sienna y a su hermano menor, Jonathan. Más extensa y sangrienta que la primera entrega, la película consolidó a Art como figura del terror moderno."],
+["Terrifier 3",2024,"Damien Leone","Cinco años después de la masacre de Miles County, Sienna y Jonathan intentan reconstruir sus vidas. Con la llegada de la Navidad intentan dejar atrás el horror, pero Art el Payaso aún no ha terminado."]]},
+{n:"Otros",k:"Varios",f:[
+["Psicosis",1960,"Alfred Hitchcock","Marion Crane huye con 40.000 dólares robados y se detiene en el apartado Motel Bates, regentado por el tímido Norman. Lo que parece una noche de descanso deriva en una investigación que revela la inquietante relación de Norman con su madre."],
+["El fotógrafo del pánico",1960,"Michael Powell","Mark Lewis, camarógrafo de un estudio londinense, asesina a mujeres con un trípode afilado mientras filma su expresión de terror. Su conducta nace de los experimentos sobre el miedo que su padre, un psicólogo, realizó con él desde la infancia."],
+["Bahía de sangre",1971,"Mario Bava","Tras la muerte de una condesa, varios herederos y especuladores se disputan una bahía de enorme valor. Los crímenes se suceden con una violencia inusual para su época, en una trama de codicia donde casi nadie es inocente."],
+["Navidades negras",1974,"Bob Clark","En una casa universitaria, durante las vacaciones de Navidad, las residentes reciben llamadas obscenas de un desconocido. Cuando una de ellas desaparece, descubren que el intruso ya se encuentra dentro de la casa."],
+["Prom Night",1980,"Paul Lynch","Seis años después de la muerte accidental de una niña, cuatro jóvenes que guardan el secreto reciben amenazas. Durante el baile de graduación, un asesino enmascarado comienza a eliminarlos."],
+["Terror Train",1980,"Roger Spottiswoode","En una fiesta de fin de año universitaria a bordo de un tren, un grupo de jóvenes es perseguido por un asesino que cambia de disfraz. Su motivación se remonta a una cruel broma del pasado."],
+["Maniac",1980,"William Lustig","Frank Zito, un hombre perturbado por una infancia de maltrato, recorre las calles de Nueva York asesinando a mujeres y conservando sus cabelleras, que coloca en maniquíes de su apartamento. Su rutina se altera cuando conoce a una joven fotógrafa."],
+["My Bloody Valentine",1981,"George Mihalka","En el pueblo minero de Valentine Bluffs, una antigua tragedia resurge cuando se reanuda el baile de San Valentín. Los jóvenes deben enfrentar a un minero enmascarado que arranca corazones."],
+["The Burning",1981,"Tony Maylam","Cropsy, un cuidador de campamento desfigurado por una broma que salió mal, sale del hospital cinco años después. Armado con unas tijeras de podar, regresa a un campamento de verano para vengarse de los jóvenes."],
+["Slumber Party Massacre",1982,"Amy Holden Jones","Durante una fiesta de pijamas en una casa de las afueras, un asesino fugitivo armado con un taladro ataca a un grupo de estudiantes. Dirigida por una mujer, la película reinterpreta con humor los códigos del género."],
+["Sleepaway Camp",1983,"Robert Hiltzik","Angela, una niña tímida que sobrevivió a una tragedia familiar, llega a un campamento de verano donde comienzan a ocurrir muertes. La película es célebre por su sorprendente final."],
+["Silent Night, Deadly Night",1984,"Charles E. Sellier Jr.","Billy presencia de niño el asesinato de sus padres a manos de un hombre disfrazado de Papá Noel y crece en un orfanato severo. Ya adulto, se viste de Santa Claus y mata durante la Navidad."],
+["Candyman",1992,"Bernard Rose","Una estudiante de Chicago investiga una leyenda urbana según la cual un espíritu con un garfio aparece si su nombre se dice cinco veces ante un espejo. Su indagación la lleva a un barrio marcado por una antigua tragedia."],
+["Yo sé lo que hicieron el verano pasado",1997,"Jim Gillespie","Cuatro amigos atropellan a un hombre y ocultan el hecho. Un año después reciben una nota que revela su secreto, y un pescador con garfio comienza a acecharlos."],
+["Urban Legend",1998,"Jamie Blanks","En una universidad de Nueva Inglaterra, una serie de asesinatos reproduce célebres leyendas urbanas. Una estudiante comienza a investigar y sospecha que un asesino con parka las está utilizando como modelo."],
+["Wrong Turn",2003,"Rob Schmidt","Un joven médico se desvía por un camino forestal de Virginia Occidental tras un accidente. Junto a otros jóvenes varados, es perseguido por una familia de caníbales deformes que habita en el bosque."],
+["Hatchet",2006,"Adam Green","Durante un recorrido turístico por los pantanos de Luisiana, un grupo queda atrapado y se topa con Victor Crowley, un espectro deformado que, según la leyenda, mata a quien invade su territorio."],
+["Behind the Mask",2006,"Scott Glosserman","Un equipo de documentalistas sigue a Leslie Vernon, un joven que se prepara para convertirse en un asesino legendario al estilo de Jason o Freddy. Con tono metaficcional, la película muestra los preparativos de una matanza."],
+["Bunnyman",2011,"Carl Lindbergh","Un grupo de amigos regresa de un fin de semana en Las Vegas por una zona remota del sur de California y es perseguido por un camión conducido por un asesino con disfraz de conejo. Al buscar ayuda, caen en manos de una familia que desmiembra y devora a jóvenes."],
+["Happy Death Day",2017,"Christopher Landon","Tree Gelbman, una universitaria egocéntrica, es asesinada por un enmascarado el día de su cumpleaños y despierta una y otra vez en la misma mañana. Para romper el ciclo debe descubrir quién la mata."],
+["Hell Fest",2018,"Gregory Plotkin","Un grupo de amigos visita un parque de atracciones de terror en la noche de Halloween. Un asesino enmascarado se mezcla con los actores y comienza a matarlos sin que los demás asistentes sospechen que es real."],
+["X",2022,"Ti West","En 1979, un grupo de cineastas rueda una película para adultos en una granja de Texas. Sus ancianos anfitriones, aislados en la propiedad, reaccionan con violencia al descubrir lo que ocurre en su casa."]]}
+];
+
+const $=s=>document.querySelector(s);
+let si=0,mi=0;const sess={};
+const tabs=$("#tabs"),saga=$("#saga");
+
+/* título animado */
+const h1=document.querySelector(".hero h1");
+"FILO NEGRO".split("").forEach((c,i)=>{const s=document.createElement("span");s.textContent=c===" "?"\u00a0":c;s.style.setProperty("--i",i);h1.appendChild(s)});
+setTimeout(()=>h1.classList.add("flick"),3600);
+
+/* sagas */
+S.forEach((s,i)=>{const b=document.createElement("button");b.type="button";b.role="tab";b.textContent=s.n;b.onclick=()=>pick(i,0);tabs.appendChild(b)});
+tabs.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();pick((si+(e.key==="ArrowRight"?1:S.length-1))%S.length,0,true)}});
+
+function slot(kind,key){
+const f=S[si].f[mi],id=f[0]+" "+f[1],fixed=(MEDIOS[id]||{})[kind==="img"?"img":"vid"],src=fixed||(sess[key]||{})[kind];
+return `<div class="slot ${kind==="img"?"poster":"video"} ${src?"filled":""}" data-k="${kind}" data-key="${key}">${src?(kind==="img"?`<img src="${src}" alt="Afiche de ${f[0]}">`:(/youtu/.test(src)?`<iframe src="https://www.youtube.com/embed/${(src.match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/)||[])[1]}" title="Tráiler de ${f[0]}" allowfullscreen loading="lazy"></iframe>`:`<video src="${src}" controls></video>`)):(kind==="img"?posterSVG(f,S[si],si)+`<em class="cap top">Afiche generado · arrastre su imagen para reemplazarlo</em>`:`<span>Tráiler: arrastre un video o haga clic</span>`)}
+${src?"":`<input type="file" accept="${kind==="img"?"image/*":"video/*"}" aria-label="${kind==="img"?"Agregar afiche":"Agregar video"}">`}</div>`}
+
+function trLink(f){const id=f[0]+" "+f[1],fx=(MEDIOS[id]||{}).vid;if(fx)return fx;
+return "https://www.youtube.com/results?search_query="+encodeURIComponent((ORIG[id]||f[0])+" "+f[1]+" tráiler oficial")}
+function pick(a,b,focus){
+si=a;mi=b;const s=S[a];
+[...tabs.children].forEach((t,j)=>{t.setAttribute("aria-selected",j===a);t.tabIndex=j===a?0:-1});
+if(focus)tabs.children[a].focus();
+const f=s.f[b],key=a+"-"+b;
+saga.innerHTML=`<div class="sagahead"><h3>${s.n}</h3><span>Antagonista: ${s.k} · ${s.f.length} películas</span></div>
+<div class="strip">${s.f.map((m,j)=>`<button class="film" type="button" data-j="${j}" style="--i:${j}" aria-pressed="${j===b}"><b>${m[1]}</b><span>${m[0]}</span></button>`).join("")}</div>
+<div class="detail"><!-- ===== AFICHE DE LA PELÍCULA ===== -->${slot("img",key)}
+<div class="info"><h3>${f[0]}</h3>
+<dl><div><dt>Año de estreno</dt><dd>${f[1]}</dd></div><div><dt>Dirección</dt><dd>${f[2]}</dd></div><div><dt>Saga</dt><dd>${s.n}</dd></div></dl>
+<h4>Historia</h4><p id="hist">${f[3]}</p><small id="hsrc"></small><p style="margin-top:1.2rem"><button class="btn" id="favb" type="button" aria-pressed="false"></button> <a class="btn red" id="trb" target="_blank" rel="noopener noreferrer" href="${trLink(f)}"${(MEDIOS[f[0]+" "+f[1]]||{}).vid?' data-fixed="1"':""}>▶ Tráiler en YouTube</a></p></div></div>`;
+saga.querySelectorAll(".film").forEach(x=>x.onclick=()=>pick(si,+x.dataset.j));
+saga.querySelectorAll(".slot").forEach(el=>wire(el,key));
+const fid=f[0]+" "+f[1],fb=$("#favb");
+const up=()=>{const on=favs.has(fid);fb.setAttribute("aria-pressed",on);fb.textContent=on?"♥ En mi lista":"♡ Agregar a mi lista"};
+up();fb.onclick=()=>{favs.has(fid)?favs.delete(fid):favs.add(fid);up();saveFav()};
+tmdb(f,key);
+
+}
+/* arrastrar y soltar */
+function wire(el,key){
+const inp=el.querySelector("input"),k=el.dataset.k;
+const load=file=>{if(!file)return;
+if(!file.type.startsWith(k==="img"?"image/":"video/")){alert("Formato no válido: seleccione "+(k==="img"?"una imagen.":"un video."));return}
+const url=URL.createObjectURL(file);
+if(key){sess[key]=sess[key]||{};sess[key][k]=url;pick(si,mi)}
+else{el.classList.add("filled");el.innerHTML=k==="img"?`<img src="${url}" alt="Imagen agregada">`:`<video src="${url}" controls></video>`}};
+if(inp)inp.onchange=()=>load(inp.files[0]);
+el.ondragover=e=>{e.preventDefault();el.classList.add("over")};
+el.ondragleave=()=>el.classList.remove("over");
+el.ondrop=e=>{e.preventDefault();el.classList.remove("over");load(e.dataTransfer.files[0])};
+}
+/* ===== FUNCIONES INTERACTIVAS ===== */
+const pool=S.flatMap((s,a)=>s.f.map((f,b)=>({s,f,a,b,id:f[0]+" "+f[1]})));
+const nz=t=>t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+const rnd=n=>Math.random()*n|0;
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
+const card=p=>`<button class="film" type="button" data-a="${p.a}" data-b="${p.b}"><b>${p.f[1]}</b><span>${p.f[0]}</span><small>${p.s.n}</small></button>`;
+
+/* corte rojo al hacer clic */
+document.addEventListener("pointerdown",e=>{const d=document.createElement("div");d.className="cut";
+d.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;--a:${-35+rnd(70)}deg`;document.body.appendChild(d);d.addEventListener("animationend",()=>d.remove())});
+
+/* buscador */
+const q=$("#q"),res=$("#res");
+q.addEventListener("input",()=>{const t=nz(q.value.trim());res.hidden=!t;tabs.hidden=saga.hidden=!!t;if(!t)return;
+const r=pool.filter(p=>nz(p.id+" "+p.f[2]+" "+p.s.n).includes(t)).slice(0,30);
+res.innerHTML=r.length?r.map(card).join(""):`<p class="empty">Sin resultados para esa búsqueda.</p>`;
+res.querySelectorAll(".film").forEach(x=>x.onclick=()=>{q.value="";q.dispatchEvent(new Event("input"));pick(+x.dataset.a,+x.dataset.b)})});
+document.addEventListener("keydown",e=>{if(e.key==="/"&&!["INPUT","SELECT","TEXTAREA"].includes(document.activeElement.tagName)){e.preventDefault();$("#sagas").scrollIntoView();q.focus()}});
+
+/* película al azar */
+$("#azar").onclick=()=>{const b=$("#azar");let n=0;b.disabled=true;
+const t=setInterval(()=>{b.textContent=pool[rnd(pool.length)].f[0];
+if(++n>14){clearInterval(t);const r=pool[rnd(pool.length)];pick(r.a,r.b);b.textContent="Película al azar";b.disabled=false;$("#sagas").scrollIntoView({behavior:"smooth"})}},90)};
+
+/* mi lista */
+let favs=new Set();try{favs=new Set(JSON.parse(localStorage.getItem("fn_fav")||"[]"))}catch(_){}
+function saveFav(){try{localStorage.setItem("fn_fav",JSON.stringify([...favs]))}catch(_){}renderFav()}
+function renderFav(){const l=pool.filter(p=>favs.has(p.id)),el=$("#fav");
+el.innerHTML=l.length?`<div class="strip">${l.map(card).join("")}</div><button class="btn" id="clr" type="button">Vaciar lista</button>`:`<p class="empty">Aún no ha agregado películas. Use el botón «Agregar a mi lista» en cualquier ficha.</p>`;
+el.querySelectorAll(".film").forEach(x=>x.onclick=()=>{pick(+x.dataset.a,+x.dataset.b);$("#sagas").scrollIntoView({behavior:"smooth"})});
+const c=$("#clr");if(c)c.onclick=()=>{favs.clear();saveFav();pick(si,mi)}}
+
+
+/* línea del tiempo */
+const Y0=Math.min(...pool.map(p=>p.f[1])),Y1=Math.max(...pool.map(p=>p.f[1])),tl=$("#tl"),cnt={};tl.min=Y0;tl.max=Y1;let lastD=0,pl=null;
+pool.forEach(p=>cnt[p.f[1]]=(cnt[p.f[1]]||0)+1);
+const mx=Math.max(...Object.values(cnt));
+$("#bars").innerHTML=Array.from({length:Y1-Y0+1},(_,i)=>{const y=Y0+i;return `<i data-y="${y}" title="${y}" class="${cnt[y]?"has":""}" style="height:${cnt[y]?24+cnt[y]/mx*76:6}%"></i>`}).join("");
+const bars=[...document.querySelectorAll("#bars i")];
+function tlShow(){const y=+tl.value,d=Math.floor(y/10)*10;
+bars.forEach(i=>{const by=+i.dataset.y;i.classList.toggle("cur",by===y);i.classList.toggle("on",by>=d&&by<d+10)});
+if(d===lastD)return;lastD=d;
+const l=pool.filter(p=>p.f[1]>=d&&p.f[1]<d+10).sort((a,b)=>a.f[1]-b.f[1]);
+$("#decade").textContent=d+"s";$("#dn").textContent=l.length+(l.length===1?" película":" películas");
+const r=$("#tlres");r.innerHTML=l.length?l.map(card).join(""):`<p class="empty">No hay películas del archivo en esta década.</p>`;
+r.querySelectorAll(".film").forEach(x=>x.onclick=()=>{pick(+x.dataset.a,+x.dataset.b);$("#sagas").scrollIntoView({behavior:"smooth"})})}
+tl.addEventListener("input",tlShow);
+$("#bars").addEventListener("click",e=>{const i=e.target.closest("i");if(i){tl.value=i.dataset.y;tlShow()}});
+function stopPlay(){clearInterval(pl);pl=null;$("#play").textContent="Reproducir cronología"}
+$("#play").onclick=()=>{if(pl){stopPlay();return}
+tl.value=Y0;tlShow();$("#play").textContent="Detener";
+pl=setInterval(()=>{if(+tl.value>=Y1){stopPlay();return}tl.value=+tl.value+1;tlShow()},150)};
+tlShow();
+/* planificador de maratón */
+const pc=$("#pc"),ps=$("#ps"),po=$("#po"),pl2=$("#plist");let plan=[];
+ps.add(new Option("Todas las películas","*"));S.forEach(s=>ps.add(new Option(s.n,s.n)));
+pc.max=pool.length;function genPlan(){const n=+pc.value;
+let p=shuf(pool.filter(x=>ps.value==="*"||x.s.n===ps.value)).slice(0,n);
+if(po.value==="c")p.sort((a,b)=>a.f[1]-b.f[1]);
+plan=p;$("#pn").textContent=p.length<n?p.length+" (máximo disponible)":n;
+pl2.innerHTML=p.map(x=>`<li data-a="${x.a}" data-b="${x.b}" tabindex="0"><span><b>${x.f[0]} (${x.f[1]})</b><small>${x.s.n} · ${x.f[2]}</small></span></li>`).join("");
+pl2.querySelectorAll("li").forEach(l=>{const go=()=>{pick(+l.dataset.a,+l.dataset.b);$("#sagas").scrollIntoView({behavior:"smooth"})};
+l.onclick=go;l.onkeydown=e=>{if(e.key==="Enter")go()}})}
+pc.oninput=()=>$("#pn").textContent=pc.value;
+ps.onchange=po.onchange=$("#pg").onclick=genPlan;
+$("#pa").onclick=()=>{const b=$("#pa");plan.forEach(x=>favs.add(x.id));saveFav();b.textContent="Agregadas: "+plan.length;setTimeout(()=>b.textContent="Agregar todas a Mi lista",1800)};
+genPlan();
+
+const ORIG={"Psicosis 1960":"Psycho","El fotógrafo del pánico 1960":"Peeping Tom","Bahía de sangre 1971":"A Bay of Blood","Navidades negras 1974":"Black Christmas",
+"La masacre de Texas 1974":"The Texas Chain Saw Massacre","La masacre de Texas 2 1986":"The Texas Chainsaw Massacre 2","Leatherface III 1990":"Leatherface: The Texas Chainsaw Massacre III","La masacre de Texas 2003":"The Texas Chainsaw Massacre","El comienzo 2006":"The Texas Chainsaw Massacre: The Beginning","La masacre de Texas 2022":"Texas Chainsaw Massacre",
+"Halloween 4: El regreso de Michael Myers 1988":"Halloween 4: The Return of Michael Myers","Halloween 5: La venganza de Michael Myers 1989":"Halloween 5: The Revenge of Michael Myers","Halloween 6: La maldición de Michael Myers 1995":"Halloween: The Curse of Michael Myers","Halloween H20 1998":"Halloween H20: 20 Years Later","Halloween: Resurrección 2002":"Halloween: Resurrection",
+"Viernes 13 1980":"Friday the 13th","Viernes 13 Parte 2 1981":"Friday the 13th Part 2","Viernes 13 Parte 3 1982":"Friday the 13th Part III","Viernes 13: El capítulo final 1984":"Friday the 13th: The Final Chapter","Viernes 13: Jason vive 1986":"Jason Lives: Friday the 13th Part VI","Viernes 13 2009":"Friday the 13th",
+"Pesadilla en la calle del Infierno 1984":"A Nightmare on Elm Street","Pesadilla 2: La venganza de Freddy 1985":"A Nightmare on Elm Street 2: Freddy's Revenge","Pesadilla 3: Los guerreros del sueño 1987":"A Nightmare on Elm Street 3: Dream Warriors","Pesadilla 4: El amo del sueño 1988":"A Nightmare on Elm Street 4: The Dream Master","Pesadilla 5: El niño del sueño 1989":"A Nightmare on Elm Street: The Dream Child","La muerte de Freddy 1991":"Freddy's Dead: The Final Nightmare","Nueva pesadilla 1994":"Wes Craven's New Nightmare","Pesadilla en la calle del Infierno 2010":"A Nightmare on Elm Street",
+"Muñeco diabólico 1988":"Child's Play","Muñeco diabólico 2 1990":"Child's Play 2","Muñeco diabólico 3 1991":"Child's Play 3","La novia de Chucky 1998":"Bride of Chucky","La maldición de Chucky 2013":"Curse of Chucky",
+"Yo sé lo que hicieron el verano pasado 1997":"I Know What You Did Last Summer",
+"El culto de Chucky 2017":"Cult of Chucky","La masacre de Texas: La próxima generación 1995":"Texas Chainsaw Massacre: The Next Generation","La masacre de Texas 3D 2013":"Texas Chainsaw 3D","Viernes 13: Un nuevo comienzo 1985":"Friday the 13th: A New Beginning","Viernes 13 Parte 7: La nueva sangre 1988":"Friday the 13th Part VII: The New Blood","Viernes 13 Parte 8: Jason toma Manhattan 1989":"Friday the 13th Part VIII: Jason Takes Manhattan","Jason va al infierno 1993":"Jason Goes to Hell: The Final Friday","El hijo de Chucky 2004":"Seed of Chucky","Saw 3D: El capítulo final 2010":"Saw 3D","Spiral: El juego del miedo continúa 2021":"Spiral: From the Book of Saw","Slumber Party Massacre 1982":"The Slumber Party Massacre","Behind the Mask 2006":"Behind the Mask: The Rise of Leslie Vernon"};
+
+/* ===== INTEGRACIÓN CON TMDB: posters reales y tráiler =====
+   Si TMDB no responde o no encuentra la película, se conserva el afiche generado.
+   Abra la página desde su propio sitio o como archivo local: las páginas publicadas en claude.ai bloquean conexiones externas. */
+/* Las claves no aparecen como texto plano en el código: se arman al ejecutar. */
+const _u=(p,s)=>{const b=atob(p.join("")),n=s.length;let o="";for(let i=0;i<b.length;i++)o+=String.fromCharCode(b.charCodeAt(i)^s.charCodeAt(i%n));return o};
+const _s=["Filo","Negro","#26"].join("");
+const TMDB_KEY=_u(["JVxaCXg","DA0ZfQQ","pTJV0PD","n1RA0FY","FwQCd1x","eXCpWVE","E="],_s);
+const TM={};
+async function tmGet(path,params){const u=new URL("https://api.themoviedb.org/3"+path);u.searchParams.set("api_key",TMDB_KEY);u.searchParams.set("language","es-ES");
+Object.entries(params||{}).forEach(([k,v])=>u.searchParams.set(k,v));const r=await fetch(u);if(!r.ok)throw new Error(r.status);return r.json()}
+const TMS={},PP=p=>"https://image.tmdb.org/t/p/w500"+p;
+function cpGet(id){try{return localStorage.getItem("fn_pp_"+id)}catch(_){return null}}
+function cpSet(id,p){try{localStorage.setItem("fn_pp_"+id,p)}catch(_){}}
+function tmFind(f){const id=f[0]+" "+f[1];if(TMS[id])return TMS[id];
+return TMS[id]=(async()=>{const yr=r=>+(r.release_date||"0").slice(0,4);let m=null;
+for(const q of[...new Set([f[0],ORIG[id]].filter(Boolean))]){const s=await tmGet("/search/movie",{query:q}),rs=s.results||[];
+m=rs.find(r=>yr(r)===f[1])||rs.find(r=>Math.abs(yr(r)-f[1])<=1);if(m)break}
+if(m&&m.poster_path)cpSet(id,m.poster_path);return m||null})().catch(e=>{delete TMS[id];throw e})}
+async function tmFilm(f){const id=f[0]+" "+f[1];if(TM[id])return TM[id];
+const m=await tmFind(f);if(!m)return TM[id]={none:1};
+return TM[id]=await tmGet("/movie/"+m.id,{append_to_response:"videos",include_video_language:"es,en"})}
+/* Precarga de afiches: busca todos en segundo plano para que aparezcan al instante */
+function warm(){const list=[];S.forEach(s=>s.f.forEach(f=>list.push(f)));let i=0;
+const w=async()=>{while(i<list.length){const f=list[i++];try{const m=await tmFind(f);if(m&&m.poster_path){const im=new Image();im.src=PP(m.poster_path)}}catch(e){}}};
+for(let k=0;k<4;k++)w()}
+function setPoster(src,alt,cap){const s=document.querySelector(".slot.poster:not(.filled)");if(!s)return false;
+s.classList.add("filled");s.style.setProperty("--bg",`url("${src}")`);
+s.innerHTML=`<img src="${src}" alt="${alt}"><em class="cap">${cap}</em>`;return true}
+/* ===== YOUTUBE DATA API v3: tráiler de respaldo =====
+   Se usa cuando TMDB no devuelve un tráiler. El resultado se guarda en el navegador para no gastar cuota (cada búsqueda cuesta 100 unidades).
+   Recomendación: en Google Cloud restrinja esta clave a su dominio (referente HTTP) y solo a la API "YouTube Data API v3". */
+const YT_KEY=_u(["ByAWDh0","cJAAmZV","p7FS4cK","CYgLTQc","U1F6azo","5Knc0BT","omSGJ8H","yc5"],_s);
+async function ytTrailer(f){const id=f[0]+" "+f[1],ck="fn_yt_"+id;
+try{const c=localStorage.getItem(ck);if(c)return c}catch(_){}
+const u=new URL("https://www.googleapis.com/youtube/v3/search");
+Object.entries({part:"snippet",q:(ORIG[id]||f[0])+" "+f[1]+" official trailer",type:"video",videoEmbeddable:"true",maxResults:1,key:YT_KEY}).forEach(([k,v])=>u.searchParams.set(k,v));
+const r=await fetch(u);if(!r.ok)throw new Error(r.status);
+const j=await r.json(),v=(j.items||[])[0],k=v&&v.id&&v.id.videoId;
+if(k){try{localStorage.setItem(ck,k)}catch(_){}}return k||null}
+function setTrailer(k){const a=$("#trb");if(!a||!k)return false;a.href="https://www.youtube.com/watch?v="+k;a.dataset.ok="1";return true}
+async function tmdb(f,key){const cur=()=>key===si+"-"+mi,fid=f[0]+" "+f[1];let d={none:1};
+const c0=cpGet(fid);if(c0)setPoster(PP(c0),"Afiche de "+f[0],"TMDB");
+try{const m=await tmFind(f);if(cur()&&m&&m.poster_path)setPoster(PP(m.poster_path),"Afiche de "+f[0],"TMDB")}catch(e){}
+try{d=await tmFilm(f)}catch(e){}
+if(!cur())return;
+if(!d.none){const hp=$("#hist");if(hp&&d.overview&&d.overview.trim().length>40){hp.textContent=d.overview;$("#hsrc").textContent="Sinopsis: TMDB"}
+if(d.poster_path)setPoster(PP(d.poster_path),"Afiche de "+f[0],"TMDB");
+const vs=(d.videos||{}).results||[],t=vs.find(v=>v.site==="YouTube"&&v.type==="Trailer")||vs.find(v=>v.site==="YouTube");
+if(t&&setTrailer(t.key))return}
+const tb=$("#trb");if(!tb||tb.dataset.ok||tb.dataset.fixed)return;
+try{const k=await ytTrailer(f);if(cur())setTrailer(k)}catch(e){}}
+
+/* ===== AFICHES GENERADOS (funcionan sin APIs ni conexión) =====
+   Si una película no tiene imagen propia, se dibuja un afiche con su título, año, director y el color de su saga.
+   Para usar el afiche real: arrastre su imagen al recuadro, o agréguela en el bloque MEDIOS. */
+function posterSVG(f,s,i){const P=["#b0284a","#d8b24a","#8a63ff","#1fb5a8","#e0662c","#c13584","#4f8cff","#7fb800","#b06a3b"],c=P[i%P.length];
+const esc=t=>t.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+let L=[""];f[0].split(" ").forEach(x=>{const l=L[L.length-1],n=(l+" "+x).trim();if(n.length<=14)L[L.length-1]=n;else L.push(x)});
+L=L.slice(0,5);const fs=L.some(l=>l.length>11)?42:54,y0=330-(L.length-1)*fs*.55;
+return `<svg viewBox="0 0 400 600" role="img" aria-label="Afiche generado de ${esc(f[0])}"><defs><linearGradient id="g${i}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000"/><stop offset="1" stop-color="${c}" stop-opacity=".5"/></linearGradient></defs>
+<rect width="400" height="600" fill="url(#g${i})"/><rect x="14" y="14" width="372" height="572" fill="none" stroke="${c}" stroke-width="2"/>
+<text x="200" y="64" text-anchor="middle" font-size="15" fill="${c}" font-family="Manrope,sans-serif" font-weight="700">${esc(s.k==="Varios"?s.n:s.k)}</text>
+<path d="M30 220 L370 160" stroke="${c}" stroke-width="4"/>
+${L.map((l,k)=>`<text x="200" y="${y0+k*fs*1.1}" text-anchor="middle" font-size="${fs}" font-style="italic" font-weight="700" fill="#e8e0cf" font-family="'Alfa Slab One',Georgia,serif">${esc(l)}</text>`).join("")}
+<text x="200" y="530" text-anchor="middle" font-size="64" fill="none" stroke="#e8e0cf" stroke-width="1.5" font-family="'Alfa Slab One',Georgia,serif" font-weight="700">${f[1]}</text>
+<text x="200" y="566" text-anchor="middle" font-size="13" fill="#9a9486" font-family="Manrope,sans-serif">${esc(f[2])}</text></svg>`}
+
+/* visor ampliado de imágenes */
+const lb=$("#lb");
+document.addEventListener("click",e=>{const i=e.target.closest(".slot.poster.filled img,.img-slot.filled img");
+if(i){lb.querySelector("img").src=i.src;lb.hidden=false}else if(e.target.closest("#lb"))lb.hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")lb.hidden=true});
+
+/* ===== DISEÑO DINÁMICO: texto que se escribe, contadores y aparición al desplazarse ===== */
+const nms=["Michael Myers","Jason Voorhees","Freddy Krueger","Leatherface","Ghostface","Chucky","Jigsaw","Art el Payaso"];
+let ni=0,nc=0,del=false;const tp=$("#typed");
+(function type(){const w=nms[ni];nc+=del?-1:1;tp.textContent=w.slice(0,nc);let t=del?40:85;
+if(!del&&nc===w.length){del=true;t=1400}else if(del&&nc===0){del=false;ni=(ni+1)%nms.length;t=300}setTimeout(type,t)})();
+const yrs=pool.map(p=>p.f[1]);
+$("#intro").textContent=`Archivo del cine slasher. ${S.length} categorías y más de ${Math.floor((pool.length-1)/10)*10} películas: año de estreno, dirección y la historia de cada una.`;
+$("#stats").innerHTML=[[pool.length,"películas"],[S.filter(s=>s.k!=="Varios").length,"sagas"],[Math.max(...yrs)-Math.min(...yrs),"años de historia"]].map(s=>`<div><b data-n="${s[0]}">0</b><span>${s[1]}</span></div>`).join("");
+document.querySelectorAll("#stats b").forEach(b=>{const n=+b.dataset.n,t0=performance.now();
+const step=t=>{const p=Math.min(1,(t-t0-1200)/1600);b.textContent=Math.round(n*Math.max(0,p));if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)});
+if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll("section h2,section .lead,.tlbox,.plan,.tools,#rank,.plist").forEach(el=>{el.classList.add("rv");io.observe(el)})}
+
+/* parallax del título, tarjetas inclinables, barra de sangre y tiempo de grabación */
+const hr=$("#hero");
+hr.addEventListener("pointermove",e=>{const r=hr.getBoundingClientRect();hr.style.setProperty("--mx",((e.clientX-r.left)/r.width-.5)*2);hr.style.setProperty("--my",((e.clientY-r.top)/r.height-.5)*2)});
+document.addEventListener("pointermove",e=>{const c=e.target.closest&&e.target.closest(".film");if(!c||e.pointerType==="touch")return;const r=c.getBoundingClientRect();
+c.style.setProperty("--ry",((e.clientX-r.left)/r.width-.5)*16+"deg");c.style.setProperty("--rx",(.5-(e.clientY-r.top)/r.height)*16+"deg")});
+document.addEventListener("pointerout",e=>{const c=e.target.closest&&e.target.closest(".film");if(c){c.style.setProperty("--rx","0deg");c.style.setProperty("--ry","0deg")}});
+const sp=$("#sp");addEventListener("scroll",()=>{sp.style.width=(scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)*100)+"%"},{passive:true});
+let secs=0;setInterval(()=>{secs++;$("#tc").textContent=[secs/3600|0,secs/60%60|0,secs%60].map(n=>String(n).padStart(2,"0")).join(":")},1000);
+/* ================= IMÁGENES · lógica de los recuadros (clic, arrastre o archivo fijo en images/) ================= */
+/* 1. LOGO */
+(()=>{const ls=$("#logoSlot"),li=$("#logoImg"),inp=ls.querySelector("input");
+const set=f=>{if(!f)return;if(!f.type.startsWith("image/")){alert("Formato no válido: seleccione una imagen.");return}
+li.src=URL.createObjectURL(f)};
+inp.onchange=()=>set(inp.files[0]);
+ls.ondragover=e=>{e.preventDefault();ls.classList.add("over")};
+ls.ondragleave=()=>ls.classList.remove("over");
+ls.ondrop=e=>{e.preventDefault();ls.classList.remove("over");set(e.dataTransfer.files[0])}})();
+/* 2 a 4. NS, MANO y VHS (todos los .img-slot) */
+document.querySelectorAll(".img-slot").forEach(ls=>{const li=ls.querySelector("img"),inp=ls.querySelector("input");
+li.onload=()=>{ls.classList.add("filled");li.style.display="block"};
+li.onerror=()=>{ls.classList.remove("filled");li.style.display="none"};
+const set=f=>{if(!f)return;if(!f.type.startsWith("image/")){alert("Formato no válido: seleccione una imagen.");return}li.src=URL.createObjectURL(f)};
+inp.onchange=()=>set(inp.files[0]);
+ls.ondragover=e=>{e.preventDefault();ls.classList.add("over")};
+ls.ondragleave=()=>ls.classList.remove("over");
+ls.ondrop=e=>{e.preventDefault();ls.classList.remove("over");set(e.dataTransfer.files[0])};
+li.src=ls.dataset.src});
+pick(0,0);renderFav();setTimeout(warm,300);
+
+/* teclado */
+document.addEventListener("keydown",e=>{
+const a=document.activeElement;if(["INPUT","SELECT","TEXTAREA"].includes(a.tagName)||a.closest("#rank")||a.closest("#tabs"))return;
+const n=S[si].f.length;
+if(e.key==="ArrowRight")pick(si,(mi+1)%n);
+if(e.key==="ArrowLeft")pick(si,(mi+n-1)%n);
+if(e.key==="ArrowDown"){e.preventDefault();pick((si+1)%S.length,0)}
+if(e.key==="ArrowUp"){e.preventDefault();pick((si+S.length-1)%S.length,0)}});
+
+/* ranking arrastrable */
+const rank=$("#rank");let dragEl=null;
+pool.forEach(p=>{const li=document.createElement("li");li.draggable=true;li.tabIndex=0;li.dataset.s=p.s.n;li.innerHTML=`<span><b>${p.f[0]}</b><small>${p.f[1]} · ${p.s.n}</small></span>`;rank.appendChild(li)});
+const rf=$("#rf");rf.add(new Option("Todas las películas","*"));S.forEach(s=>rf.add(new Option(s.n,s.n)));
+rf.onchange=()=>[...rank.children].forEach(li=>li.hidden=rf.value!=="*"&&li.dataset.s!==rf.value);
+const vis=(n,d)=>{while((n=n[d])&&n.hidden);return n};
+rank.addEventListener("dragstart",e=>{dragEl=e.target.closest("li");dragEl.classList.add("drag");e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain","")});
+rank.addEventListener("dragend",()=>{dragEl&&dragEl.classList.remove("drag");dragEl=null});
+rank.addEventListener("dragover",e=>{e.preventDefault();const t=e.target.closest("li");if(!dragEl||!t||t===dragEl)return;
+const r=t.getBoundingClientRect();rank.insertBefore(dragEl,e.clientY<r.top+r.height/2?t:t.nextSibling)});
+rank.addEventListener("click",e=>{const li=e.target.closest("li");if(!li)return;
+const sel=rank.querySelector("li.pick");
+if(!sel){li.classList.add("pick");return}
+if(sel===li){li.classList.remove("pick");return}
+const all=[...rank.children];const down=all.indexOf(sel)<all.indexOf(li);
+rank.insertBefore(sel,down?li.nextSibling:li);
+sel.classList.remove("pick");sel.classList.remove("moved");void sel.offsetWidth;sel.classList.add("moved")});
+rank.addEventListener("keydown",e=>{const li=e.target.closest("li");if(!li)return;
+if(e.key==="Enter"){e.preventDefault();li.classList.toggle("pick")}
+if(li.classList.contains("pick")){
+if(e.key==="ArrowUp"&&vis(li,"previousElementSibling")){e.preventDefault();rank.insertBefore(li,vis(li,"previousElementSibling"));li.focus()}
+if(e.key==="ArrowDown"&&vis(li,"nextElementSibling")){e.preventDefault();rank.insertBefore(vis(li,"nextElementSibling"),li);li.focus()}}});
+
+</script>
+</body>
+</html>
